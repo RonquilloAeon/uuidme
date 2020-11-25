@@ -11,5 +11,6 @@
 `uuidme` is a mini UUIDv4 generator. You can generate up to 255 UUIDs at a time.
 
 ## Usage
-Running `./uuidme` generates a random UUID
-Running `./uuidme 10` generates 10 random UUIDs
+Running `./uuidme` generates a random UUID.
+
+Running `./uuidme 10` generates 10 random UUIDs.
