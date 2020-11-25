@@ -35,3 +35,40 @@ pub fn generate_uuid(config: &Config) -> Result<Vec<String>, Box<dyn Error>> {
 
     Ok(uuids)
 }
+
+#[cfg(test)]
+mod tests {
+    use regex::Regex;
+
+    use super::{Config, generate_uuid};
+
+    fn _check_regex(test: &String) -> bool {
+        let regex = Regex::new(
+            r"^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        ).unwrap();
+
+        regex.is_match(test)
+    }
+
+    #[test]
+    fn generate_1_uuid() {
+        let config = Config { count: 1 };
+        let uuids = generate_uuid(&config).unwrap();
+
+        assert_eq!(uuids.len(), 1);
+        assert!(_check_regex(&uuids[0]));
+    }
+
+    #[test]
+    fn generate_3_uuids() {
+        let config = Config { count: 3 };
+        let uuids = generate_uuid(&config).unwrap();
+
+        assert_eq!(uuids.len(), 3);
+        assert_ne!(uuids.windows(2).any(|w| w[0] == w[1]), true);
+
+        for uuid in uuids.iter() {
+            assert!(_check_regex(&uuid));
+        }
+    }
+}
