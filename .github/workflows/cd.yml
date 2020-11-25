@@ -9,9 +9,6 @@ jobs:
   release:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      PROJECT_NAME: uuidme
-      RELEASE_NAME: uuidme_darwin
-      RELEASE_PATH: target/release
     runs-on: macos-latest
 
     steps:
@@ -28,8 +25,7 @@ jobs:
       - name: Rust Build
         run: |
           cargo build --release --all
-          strip target/release/$PROJECT_NAME
-          mv target/release/$PROJECT_NAME $RELEASE_PATH/$RELEASE_NAME
+          strip target/release/uuidme
 
       - name: Create Release
         id: create_release
@@ -44,6 +40,6 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./$RELEASE_NAME
-          asset_name: $PROJECT_NAME
+          asset_path: ./target/release/uuidme
+          asset_name: uuidme
           asset_content_type: application/octet-stream
