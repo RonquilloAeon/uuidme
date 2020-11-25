@@ -41,7 +41,7 @@ pub fn run(config: &Config) -> Result<(), Box<dyn Error>> {
 
     // Print message
     let message = match config.count() {
-        1 => format!("Generated 1 UUID"),
+        1 => String::from("Generated 1 UUID"),
         count => format!("Generated {} UUIDs", count),
     };
 
@@ -51,7 +51,7 @@ pub fn run(config: &Config) -> Result<(), Box<dyn Error>> {
             let dash = (0..dash_size).map(|_| "-").collect::<String>();
 
             println!("{}| {} |{}", dash, message, dash);
-        },
+        }
         _ => println!("{}", message),
     };
 
@@ -70,9 +70,9 @@ mod tests {
     use super::generate_uuid;
 
     fn _check_regex(test: &String) -> bool {
-        let regex = Regex::new(
-            r"^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
-        ).unwrap();
+        let regex =
+            Regex::new(r"^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$")
+                .unwrap();
 
         regex.is_match(test)
     }
