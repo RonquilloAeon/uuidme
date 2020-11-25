@@ -23,11 +23,10 @@ jobs:
           toolchain: nightly
 
       - name: Rust Build
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --release --all
-        run: strip target/release/$PROJECT_NAME && mv target/release/$PROJECT_NAME $RELEASE_PATH/$PROJECT_NAME
+        run: |
+          cargo build --release -all
+          strip target/release/$PROJECT_NAME
+          mv target/release/$PROJECT_NAME $RELEASE_PATH/$PROJECT_NAME
 
       - name: Create Release
         id: create_release
