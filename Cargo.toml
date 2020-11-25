@@ -11,4 +11,5 @@ term_size = "0.3.*"
 uuid = { "version" = "0.8.*", features = ["v4"] }
 
 [dev-dependencies]
+cargo-bump = "1.1.*"
 regex = "1.4.*"
