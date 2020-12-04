@@ -36,6 +36,9 @@ jobs:
           draft: false
           prerelease: false
 
+      - name: Make uuidme executable
+        run: chmod +x ./target/release/uuidme
+
       - name: Upload Release Artifact
         uses: actions/upload-release-asset@v1
         with:
